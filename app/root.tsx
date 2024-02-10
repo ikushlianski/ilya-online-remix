@@ -1,92 +1,41 @@
-import { json, LinksFunction, redirect } from "@remix-run/node";
+// Import styles of packages that you've installed.
+// All packages except `@mantine/hooks` require styles imports
+import "@mantine/core/styles.css";
+
+import { cssBundleHref } from "@remix-run/css-bundle";
+import type { LinksFunction } from "@remix-run/node";
 import {
-  Link,
-  Form,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "@remix-run/react";
-import { createEmptyContact, getContacts } from "./data";
-
-import appStylesHref from "./app.css";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: appStylesHref },
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-export const action = async () => {
-  const contact = await createEmptyContact();
-  return redirect(`/contacts/${contact.id}/edit`);
-};
-
-export const loader = async () => {
-  const contacts = await getContacts();
-  return json({ contacts });
-};
-
 export default function App() {
-  const { contacts } = useLoaderData<typeof loader>();
-
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        <ColorSchemeScript />
       </head>
       <body>
-        <div id="sidebar">
-          <h1>Remix Contacts</h1>
-          <div>
-            <Form id="search-form" role="search">
-              <input
-                id="q"
-                aria-label="Search contacts"
-                placeholder="Search"
-                type="search"
-                name="q"
-              />
-              <div id="search-spinner" aria-hidden hidden={true} />
-            </Form>
-            <Form method="post">
-              <button type="submit">New</button>
-            </Form>
-          </div>
-          <nav>
-            <ul>
-              {contacts.map((contact) => (
-                <li key={contact.id}>
-                  <Link to={`contacts/${contact.id}`}>
-                    {contact.first || contact.last ? (
-                      <>
-                        {contact.first} {contact.last}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                    {contact.favorite ? <span>★</span> : null}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            ) : (
-            <p>
-              <i>No contacts</i>
-            </p>
-            )
-          </nav>
-        </div>
-        <div id="detail">
+        <MantineProvider>
+          <div>Hello</div>
           <Outlet />
-        </div>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </MantineProvider>
       </body>
     </html>
   );
