@@ -1,4 +1,4 @@
-import { createTheme } from "@mantine/core";
+import { createTheme, rem } from "@mantine/core";
 
 export const myTheme = createTheme({
   colors: {
@@ -28,4 +28,16 @@ export const myTheme = createTheme({
     ],
   },
   primaryColor: "blue",
+  headings: {
+    fontFamily: "Unbounded, sans-serif",
+    fontWeight: "700",
+  },
+  fontFamily: "Arial, sans-serif",
+  fontSizes: {
+    xs: rem(12),
+    sm: rem(16),
+    md: rem(24),
+    lg: rem(36),
+    xl: rem(48),
+  },
 });

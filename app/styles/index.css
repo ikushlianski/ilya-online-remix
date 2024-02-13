@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Unbounded';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+    url('/fonts/unbounded/Unbounded-Bold.ttf') format('ttf'),
+    url('/fonts/unbounded/Unbounded-Light.ttf') format('ttf'),
+    url('/fonts/unbounded/Unbounded-Regular.ttf') format('ttf')
+}
