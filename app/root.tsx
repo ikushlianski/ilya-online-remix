@@ -1,6 +1,7 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
+import "@mantine/core/styles/global.css";
 
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
@@ -13,6 +14,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { myTheme } from "~/theme";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -29,8 +31,7 @@ export default function App() {
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>
-          <div>Hello</div>
+        <MantineProvider theme={myTheme}>
           <Outlet />
           <ScrollRestoration />
           <Scripts />
